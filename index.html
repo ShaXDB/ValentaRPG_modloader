@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valenta Minecraft Mod Yükleyici</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #36393f;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .title-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 32px;
+      background-color: #202225;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      -webkit-app-region: drag;
+      z-index: 1000;
+    }
+
+    .title-bar-title {
+      font-size: 14px;
+      color: #dcddde;
+      margin-left: 10px;
+    }
+
+    .title-bar-controls {
+      display: flex;
+      -webkit-app-region: no-drag;
+    }
+
+    .title-bar-button {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #dcddde;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .title-bar-button:hover {
+      background-color: #36393f;
+    }
+
+    .title-bar-minimize:hover {
+      background-color: #3b3f45;
+    }
+
+    .title-bar-maximize:hover {
+      background-color: #3b3f45;
+    }
+
+    .title-bar-close:hover {
+      background-color: #f04747;
+    }
+
+    .container {
+      background-color: #2f3136;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+      margin-top: 32px;
+    }
+
+    h1 {
+      color: #7289da;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 20px;
+      border-radius: 50%;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .minecraft-path {
+      background-color: #40444b;
+      border: none;
+      border-radius: 4px;
+      padding: 10px;
+      color: #ffffff;
+      flex-grow: 1;
+      margin-right: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    button {
+      background-color: #7289da;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.1s;
+    }
+
+    button:hover {
+      background-color: #5b6eae;
+      transform: translateY(-2px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      background-color: #4f545c;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .status {
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 4px;
+      background-color: #40444b;
+      text-align: left;
+      height: 120px;
+      overflow-y: auto;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .status div {
+      margin-bottom: 5px;
+      border-bottom: 1px solid #36393f;
+      padding-bottom: 5px;
+    }
+
+    .progress-container {
+      width: 100%;
+      background-color: #40444b;
+      border-radius: 4px;
+      margin-top: 20px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 10px;
+      background: linear-gradient(90deg, #43b581, #7289da);
+      border-radius: 4px;
+      width: 0%;
+      transition: width 0.3s;
+    }
+
+    .features {
+      margin-top: 20px;
+      text-align: left;
+      background-color: #40444b;
+      border-radius: 4px;
+      padding: 15px;
+    }
+
+    .features h3 {
+      color: #7289da;
+      font-size: 16px;
+      margin-top: 0;
+    }
+
+    .features ul {
+      padding-left: 20px;
+      margin-bottom: 0;
+    }
+
+    .features li {
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="title-bar">
+    <div class="title-bar-title">
+      <img src="assets/icon.ico" width="16" height="16" style="vertical-align: middle; margin-right: 5px;">
+      Valenta Minecraft Mod Yükleyici
+    </div>
+    <div class="title-bar-controls">
+      <div class="title-bar-button title-bar-minimize" id="minimize-button">&#8211;</div>
+      <div class="title-bar-button title-bar-maximize" id="maximize-button">&#9744;</div>
+      <div class="title-bar-button title-bar-close" id="close-button">✕</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <img src="assets/icon.ico" alt="Valenta Minecraft Mod Yükleyici" class="logo">
+    <h1>Valenta Minecraft Mod Yükleyici</h1>
+    
+    <div class="input-group">
+      <input type="text" id="minecraft-path" class="minecraft-path" placeholder=".minecraft klasörünü seçin" readonly>
+      <button id="select-folder">Klasör Seç</button>
+    </div>
+    
+    <button id="install-button" disabled>Mod Paketini Kur</button>
+    
+    <div class="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    
+    <div class="status" id="status">
+      Başlamak için .minecraft klasörünü seçin.
+    </div>
+
+    <div class="features">
+      <h3>Bu Uygulama Aşağıdakileri Yapmaktadır:</h3>
+      <ul>
+        <li>Forge otomatik kurulumu</li>
+        <li>Modların Kurulumu</li>
+        <li>Özel shader paketlerinin Kurulumu</li>
+        <li>Resource Pack Kurulumu</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+    
+    const minecraftPathInput = document.getElementById('minecraft-path');
+    const selectFolderButton = document.getElementById('select-folder');
+    const installButton = document.getElementById('install-button');
+    const statusDiv = document.getElementById('status');
+    const progressBar = document.getElementById('progress-bar');
+    const closeButton = document.getElementById('close-button');
+    const minimizeButton = document.getElementById('minimize-button');
+    const maximizeButton = document.getElementById('maximize-button');
+    
+    // Window control buttons functionality
+    closeButton.addEventListener('click', () => {
+      ipcRenderer.send('close-window');
+    });
+    
+    minimizeButton.addEventListener('click', () => {
+      ipcRenderer.send('minimize-window');
+    });
+    
+    maximizeButton.addEventListener('click', () => {
+      ipcRenderer.send('maximize-window');
+    });
+    
+    // Adjust container size based on window size
+    function adjustContainerSize() {
+      const container = document.querySelector('.container');
+      if (window.innerWidth < 600) {
+        container.style.width = '95%';
+        container.style.padding = '15px';
+      } else {
+        container.style.width = '80%';
+        container.style.padding = '30px';
+      }
+    }
+    
+    // Call on load and when window is resized
+    window.addEventListener('load', adjustContainerSize);
+    window.addEventListener('resize', adjustContainerSize);
+    
+    // Kaydedilmiş Minecraft yolunu al
+    async function loadSavedPath() {
+      const savedPath = await ipcRenderer.invoke('get-minecraft-path');
+      if (savedPath) {
+        minecraftPathInput.value = savedPath;
+        installButton.disabled = false;
+      }
+    }
+    
+    // Sayfa yüklendiğinde kaydedilmiş yolu yükle
+    window.addEventListener('DOMContentLoaded', loadSavedPath);
+    
+    // Klasör seçme butonu
+    selectFolderButton.addEventListener('click', async () => {
+      const selectedPath = await ipcRenderer.invoke('select-minecraft-folder');
+      if (selectedPath) {
+        minecraftPathInput.value = selectedPath;
+        installButton.disabled = false;
+        addStatus('Minecraft klasörü seçildi: ' + selectedPath);
+      }
+    });
+    
+    // Kurulum butonu
+    installButton.addEventListener('click', async () => {
+      const minecraftPath = minecraftPathInput.value;
+      
+      if (!minecraftPath) {
+        addStatus('Lütfen önce .minecraft klasörünü seçin!');
+        return;
+      }
+      
+      // Butonları devre dışı bırak
+      installButton.disabled = true;
+      selectFolderButton.disabled = true;
+      
+      addStatus('Kurulum başlatılıyor...');
+      
+      try {
+        const result = await ipcRenderer.invoke('install-mods', minecraftPath);
+        
+        if (result.success) {
+          addStatus('✅ ' + result.message);
+        } else {
+          addStatus('❌ ' + result.message);
+        }
+      } catch (error) {
+        addStatus('❌ Kurulum sırasında bir hata oluştu: ' + error.message);
+      } finally {
+        // Butonları tekrar aktif et
+        installButton.disabled = false;
+        selectFolderButton.disabled = false;
+      }
+    });
+    
+    // İndirme durumunu güncelle
+    ipcRenderer.on('update-status', (event, message) => {
+      addStatus(message);
+    });
+    
+    // İndirme ilerlemesini güncelle
+    ipcRenderer.on('download-progress', (event, percent) => {
+      progressBar.style.width = percent + '%';
+    });
+    
+    // Durum mesajı ekle
+    function addStatus(message) {
+      const date = new Date();
+      const time = date.toLocaleTimeString();
+      statusDiv.innerHTML += `<div>[${time}] ${message}</div>`;
+      statusDiv.scrollTop = statusDiv.scrollHeight;
+    }
+  </script>
+</body>
+</html>

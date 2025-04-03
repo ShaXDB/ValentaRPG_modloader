@@ -1,0 +1,33 @@
+{
+  "name": "valenta-minecraft-mod-installer",
+  "version": "1.0.0",
+  "description": "Valenta Minecraft mod paketi otomatik yükleyici",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "adm-zip": "^0.5.10",
+    "axios": "^1.6.2",
+    "electron-store": "^8.1.0"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  },
+"build": {
+  "appId": "com.minecraft.modinstaller",
+  "productName": "Valenta Minecraft Mod Yükleyici",
+  "win": {
+    "target": "nsis",
+    "icon": "assets/icon.ico"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true
+  }
+}
+}
