@@ -1,4 +1,4 @@
-# Minecraft Mod Yükleyici
+# Valenta Minecraft Mod Yükleyici
 
 Bu uygulama, Minecraft için mod paketlerini, shader paketlerini ve kaynak paketlerini tek tıklamayla otomatik olarak kurmanızı sağlar. Forge kurulumunu da otomatik olarak gerçekleştirir.
 
